@@ -15,7 +15,10 @@ uniform sampler2D WeatherDepthSampler;
 uniform sampler2D CloudsSampler;
 uniform sampler2D CloudsDepthSampler;
 
-uniform int Test;
+
+layout(std140) uniform TestConfig {
+    int Test;
+};
 
 in vec2 texCoord;
 in vec2 oneTexel;

@@ -4,9 +4,12 @@
 
 in vec4 Position;
 
-uniform mat4 ProjMat;
-uniform vec2 SearchLayerSize;
-uniform vec2 OutSize;
+layout(std140) uniform SamplerInfo {
+    vec2 OutSize;
+    vec2 SearchLayerSize;
+    vec2 ItemEntityDepthSize;
+    vec2 ColoredCentersSize;
+};
 
 out vec2 texCoord;
 flat out vec2 inOneTexel;
@@ -25,8 +28,8 @@ void main(){
 
     inAspectRatio = SearchLayerSize.x / SearchLayerSize.y;
     inOneTexel = 1.0 / SearchLayerSize;
-    texCoord = Position.xy / OutSize;
-    conversionK = tan(FOV / 360.0 * 3.14159265358979) * 2.0;
+    texCoord = Position.xy;
+    conversionK = tan(FOV / 360.0 * PI) * 2.0;
 
     gl_Position = vec4(x, y, 0.2, 1.0);
 }

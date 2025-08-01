@@ -2,15 +2,21 @@
 
 #moj_import <minecraft:utils.glsl>
 #moj_import <minecraft:texint.glsl>
+#moj_import <minecraft:projection.glsl>
 
 in vec4 Position;
 
 uniform sampler2D LightsSampler;
 uniform sampler2D VolumeSampler;
-uniform mat4 ProjMat;
-uniform vec2 OutSize;
-uniform vec2 LightsSize;
-uniform vec2 VolumeSize;
+
+layout(std140) uniform SamplerInfo {
+    vec2 OutSize;
+    vec2 DiffuseSize;
+    vec2 DiffuseDepthSize;
+    vec2 LightsSize;
+    vec2 VolumeSize;
+    vec2 BlurSize;
+};
 
 out vec2 texCoord;
 flat out vec2 oneTexel;
@@ -26,7 +32,7 @@ void main(){
     oneTexelVolume = 1.0 / VolumeSize;
     aspectRatio = OutSize.x / OutSize.y;
     texCoord = Position.xy;
-    conversionK = tan(FOV / 360.0 * 3.14159265358979) * 2.0;
+    conversionK = tan(FOV / 360.0 * PI) * 2.0;
 
     gl_Position = vec4(outPos.xy, 0.2, 1.0);
 }

@@ -1,18 +1,14 @@
 #version 150
 
 #moj_import <minecraft:fog.glsl>
+#moj_import <minecraft:dynamictransforms.glsl>
+#moj_import <minecraft:projection.glsl>
 #moj_import <minecraft:utils.glsl>
 
 uniform sampler2D Sampler0;
 
-uniform mat4 ProjMat;
-
-uniform vec4 ColorModulator;
-uniform float FogStart;
-uniform float FogEnd;
-uniform vec4 FogColor;
-
-in float vertexDistance;
+in float sphericalVertexDistance;
+in float cylindricalVertexDistance;
 in vec4 vertexColor;
 in vec2 texCoord0;
 in vec2 texCoord1;
@@ -25,7 +21,7 @@ in float scale;
 out vec4 fragColor;
 
 void main() {
-    bool hand = isHand(FogStart, FogEnd);
+    bool hand = isHand(FogRenderDistanceStart, FogRenderDistanceEnd);
     bool gui = isGUI(ProjMat);
 
     
@@ -35,7 +31,7 @@ void main() {
             discard;
         }
         color *= vertexColor * ColorModulator;
-        fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
+        fragColor = apply_fog(color, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
         fragColor.a = fragColor.a < 0.1 ? 0.1 : fragColor.a;
 
         if (!gui && gl_FragCoord.z <= LIGHTDEPTH) {
@@ -49,7 +45,7 @@ void main() {
         if (!(abs(texCoord2.x - 0.5) <= onePixelToUV && abs(texCoord2.y - 0.5) <= onePixelToUV)) {
             discard;
         }
-        fragColor = linear_fog(vertexColor, vertexDistance, FogStart, FogEnd, FogColor);
+        fragColor = apply_fog(vertexColor, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
         fragColor.a = 1.0;
 
         gl_FragDepth = gl_FragCoord.z * LIGHTDEPTH;

@@ -45,13 +45,15 @@
                 }
             ],
             "output": "swap1",
-            "uniforms": [
-                {
-                    "name":"Test",
-                    "type":"int",
-                    "values": [ 0 ]
-                }
-            ]
+            "uniforms": {
+                "TestConfig": [
+                    {
+                        "name":"Test",
+                        "type":"int",
+                        "value": 0
+                    }
+                ]
+            }
         },
         {
             "vertex_shader": "minecraft:post/aggregate",
@@ -63,13 +65,15 @@
                 }
             ],
             "output": "swap2",
-            "uniforms": [
-                {
-                    "name":"Test",
-                    "type":"int",
-                    "values": [ 0 ]
-                }
-            ]
+            "uniforms": {
+                "TestConfig": [
+                    {
+                        "name":"Test",
+                        "type":"int",
+                        "value": 0
+                    }
+                ]
+            }
         },
         {
             "vertex_shader": "minecraft:post/aggregate",
@@ -81,13 +85,15 @@
                 }
             ],
             "output": "swap1",
-            "uniforms": [
-                {
-                    "name":"Test",
-                    "type":"int",
-                    "values": [ 0 ]
-                }
-            ]
+            "uniforms": {
+                "TestConfig": [
+                    {
+                        "name":"Test",
+                        "type":"int",
+                        "value": 0
+                    }
+                ]
+            }
         },
         {
             "vertex_shader": "minecraft:post/aggregate",
@@ -99,13 +105,15 @@
                 }
             ],
             "output": "swap2",
-            "uniforms": [
-                {
-                    "name":"Test",
-                    "type":"int",
-                    "values": [ 0 ]
-                }
-            ]
+            "uniforms": {
+                "TestConfig": [
+                    {
+                        "name":"Test",
+                        "type":"int",
+                        "value": 0
+                    }
+                ]
+            }
         },
         {
             "vertex_shader": "minecraft:post/aggregate",
@@ -117,13 +125,15 @@
                 }
             ],
             "output": "swap1",
-            "uniforms": [
-                {
-                    "name":"Test",
-                    "type":"int",
-                    "values": [ 0 ]
-                }
-            ]
+            "uniforms": {
+                "TestConfig": [
+                    {
+                        "name":"Test",
+                        "type":"int",
+                        "value": 0
+                    }
+                ]
+            }
         },
         {
             "vertex_shader": "minecraft:post/aggregate_6",
@@ -144,13 +154,15 @@
                 }
             ],
             "output": "lights",
-            "uniforms": [
-                {
-                    "name":"Test",
-                    "type":"int",
-                    "values": [ 0 ]
-                }
-            ]
+            "uniforms": {
+                "TestConfig": [
+                    {
+                        "name":"Test",
+                        "type":"int",
+                        "value": 0
+                    }
+                ]
+            }
         },
         {
             "vertex_shader": "minecraft:post/zone_calc",
@@ -173,18 +185,20 @@
                 }
             ],
             "output": "swap1",
-            "uniforms": [
-                {
-                    "name": "Radius",
-                    "type":"float",
-                    "values": [ 0.01 ]
-                },
-                {
-                    "name": "Offset",
-                    "type":"float",
-                    "values": [ 0.0 ]
-                }
-            ]
+            "uniforms": {
+                "BlurConfig": [
+                    {
+                        "name": "Radius",
+                        "type":"float",
+                        "value": 0.01
+                    },
+                    {
+                        "name": "Offset",
+                        "type":"float",
+                        "value": 0.0
+                    }
+                ]
+            }
         },
         {
             "vertex_shader": "minecraft:post/blur_custom",
@@ -196,18 +210,20 @@
                 }
             ],
             "output": "swap3",
-            "uniforms": [
-                {
-                    "name": "Radius",
-                    "type":"float",
-                    "values": [ 0.015 ]
-                },
-                {
-                    "name": "Offset",
-                    "type":"float",
-                    "values": [ 7.0 ]
-                }
-            ]
+            "uniforms": {
+                "BlurConfig": [
+                    {
+                        "name": "Radius",
+                        "type":"float",
+                        "value": 0.015
+                    },
+                    {
+                        "name": "Offset",
+                        "type":"float",
+                        "value": 7.0
+                    }
+                ]
+            }
         },
         {
             "vertex_shader": "minecraft:post/blur_custom",
@@ -219,18 +235,20 @@
                 }
             ],
             "output": "swap1",
-            "uniforms": [
-                {
-                    "name": "Radius",
-                    "type":"float",
-                    "values": [ 0.02 ]
-                },
-                {
-                    "name": "Offset",
-                    "type":"float",
-                    "values": [ 21.0 ]
-                }
-            ]
+            "uniforms": {
+                "BlurConfig": [
+                    {
+                        "name": "Radius",
+                        "type":"float",
+                        "value": 0.02
+                    },
+                    {
+                        "name": "Offset",
+                        "type":"float",
+                        "value": 21.0
+                    }
+                ]
+            }
         },
         {
             "vertex_shader": "minecraft:post/blur_custom",
@@ -242,18 +260,20 @@
                 }
             ],
             "output": "swap3",
-            "uniforms": [
-                {
-                    "name": "Radius",
-                    "type":"float",
-                    "values": [ 0.02 ]
-                },
-                {
-                    "name": "Offset",
-                    "type":"float",
-                    "values": [ 45.0 ]
-                }
-            ]
+            "uniforms": {
+                "BlurConfig": [
+                    {
+                        "name": "Radius",
+                        "type":"float",
+                        "value": 0.02
+                    },
+                    {
+                        "name": "Offset",
+                        "type":"float",
+                        "value": 45.0
+                    }
+                ]
+            }
         },
         {
             "vertex_shader": "minecraft:post/light_apply",
@@ -401,13 +421,15 @@
                 }
             ],
             "output": "swap4",
-            "uniforms": [
-                {
-                    "name":"Test",
-                    "type":"int",
-                    "values": [ 0 ]
-                }
-            ]
+            "uniforms": {
+                "TestConfig": [
+                    {
+                        "name": "Test",
+                        "type":"int",
+                        "value": 0
+                    }
+                ]
+            }
         },
         {
             "vertex_shader": "minecraft:post/blit",
@@ -419,13 +441,15 @@
                 }
             ],
             "output": "minecraft:main",
-            "uniforms": [
-                {
-                    "name": "ColorModulate",
-                    "type": "vec4",
-                    "values": [ 1.0, 1.0, 1.0, 1.0 ]
-                }
-            ]
+            "uniforms": {
+                "BlitConfig": [
+                    {
+                        "name": "ColorModulate",
+                        "type": "vec4",
+                        "value": [ 1.0, 1.0, 1.0, 1.0 ]
+                    }
+                ]
+            }
         }
     ]
 }

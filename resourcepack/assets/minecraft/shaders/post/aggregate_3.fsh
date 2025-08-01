@@ -3,16 +3,23 @@
 #moj_import <minecraft:utils.glsl>
 
 uniform sampler2D SearchLayerSampler;
-uniform vec2 SearchLayerSize;
-uniform int Test;
+
+layout(std140) uniform SamplerInfo {
+    vec2 OutSize;
+    vec2 SearchLayerSize;
+};
+
+layout(std140) uniform TestConfig {
+    int Test;
+};
 
 in vec2 texCoord;
 flat in vec2 oneTexel;
 
-out vec4 outColor;
+out vec4 fragColor;
 
 void main() {
-    outColor = texture(SearchLayerSampler, texCoord);
+    fragColor = texture(SearchLayerSampler, texCoord);
     float width = ceil(SearchLayerSize.x / float(AGGSTEP0));
     float height = ceil(SearchLayerSize.y / float(AGGSTEP0));
     vec2 samplepos = gl_FragCoord.xy - 0.5;
@@ -23,10 +30,10 @@ void main() {
             tmpCounter += float(texture(SearchLayerSampler, (vec2(samplepos.x + float(i), samplepos.y) + 0.5) * oneTexel).b * 255.0);
         }
         tmpCounter /= 255.0;
-        outColor = vec4(vec3(tmpCounter), 1.0);
+        fragColor = vec4(vec3(tmpCounter), 1.0);
         if (Test == 1) {
-            outColor.rgb /= tmpCounter == 0.0 ? 1.0 : outColor.r;
-            outColor.rgb += vec3(0.5, 0.0, 0.0);
+            fragColor.rgb /= tmpCounter == 0.0 ? 1.0 : fragColor.r;
+            fragColor.rgb += vec3(0.5, 0.0, 0.0);
         }
     }
 }

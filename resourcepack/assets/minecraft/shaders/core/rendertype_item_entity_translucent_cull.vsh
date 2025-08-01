@@ -2,6 +2,8 @@
 
 #moj_import <minecraft:light.glsl>
 #moj_import <minecraft:fog.glsl>
+#moj_import <minecraft:dynamictransforms.glsl>
+#moj_import <minecraft:projection.glsl>
 #moj_import <minecraft:utils.glsl>
 
 in vec3 Position;
@@ -14,18 +16,8 @@ in vec3 Normal;
 uniform sampler2D Sampler0;
 uniform sampler2D Sampler2;
 
-uniform mat4 ModelViewMat;
-uniform mat4 ProjMat;
-uniform int FogShape;
-uniform float FogStart;
-uniform float FogEnd;
-
-uniform vec3 Light0_Direction;
-uniform vec3 Light1_Direction;
-
-uniform vec4 ColorModulator;
-
-out float vertexDistance;
+out float sphericalVertexDistance;
+out float cylindricalVertexDistance;
 out vec4 vertexColor;
 out vec2 texCoord0;
 out vec2 texCoord1;
@@ -42,7 +34,8 @@ float opz(vec4 pos, float factor, float bias) {
 }
 
 void main() {
-    vertexDistance = fog_distance(Position, FogShape);
+    sphericalVertexDistance = fog_spherical_distance(Position);
+    cylindricalVertexDistance = fog_cylindrical_distance(Position);
     vertexColor = minecraft_mix_light(Light0_Direction, Light1_Direction, Normal, Color) * texelFetch(Sampler2, UV2 / 16, 0);
     texCoord0 = UV0;
     texCoord1 = UV1;
@@ -50,7 +43,7 @@ void main() {
 
     vec4 tmpcol = texture(Sampler0, UV0);
     vec4 tmp = ModelViewMat * vec4(Position, 1.0);
-    bool hand = isHand(FogStart, FogEnd);
+    bool hand = isHand(FogRenderDistanceStart, FogRenderDistanceEnd);
     bool gui = isGUI(ProjMat);
 
     marker = float(!hand && !gui && (tmpcol.a == LIGHTALPHA));

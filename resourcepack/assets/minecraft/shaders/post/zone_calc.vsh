@@ -7,9 +7,10 @@ in vec4 Position;
 
 uniform sampler2D LightsSampler;
 
-uniform mat4 ProjMat;
-uniform vec2 LightsSize;
-uniform vec2 OutSize;
+layout(std140) uniform SamplerInfo {
+    vec2 OutSize;
+    vec2 LightsSize;
+};
 
 out vec2 texCoord;
 flat out vec2 oneTexel;
