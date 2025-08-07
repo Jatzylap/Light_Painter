@@ -6,19 +6,28 @@
 uniform sampler2D SearchLayerSampler;
 uniform sampler2D ItemEntityDepthSampler;
 uniform sampler2D ColoredCentersSampler;
-uniform vec2 SearchLayerSize;
-uniform int Test;
+
+layout(std140) uniform SamplerInfo {
+    vec2 OutSize;
+    vec2 SearchLayerSize;
+    vec2 ItemEntityDepthSize;
+    vec2 ColoredCentersSize;
+};
+
+layout(std140) uniform TestConfig {
+    int Test;
+};
 
 in vec2 texCoord;
 flat in vec2 inOneTexel;
 flat in float inAspectRatio;
 flat in float conversionK;
 
-out vec4 outColor;
+out vec4 fragColor;
 
 void main() {
     if (Test == 1) {
-        outColor = texture(SearchLayerSampler, texCoord);
+        fragColor = texture(SearchLayerSampler, texCoord);
     }
     float width = ceil(SearchLayerSize.x / float(AGGSTEP0));
     float width2 = ceil(width / float(AGGSTEP1));
@@ -43,7 +52,7 @@ void main() {
         }
     }
 
-    outColor = vec4(encodeInt(int(tmpCounter)).rgb, 69.0 / 255.0);
+    fragColor = vec4(encodeInt(int(tmpCounter)).rgb, 69.0 / 255.0);
 
     if (status == 1.0) {
         samplepos = vec2(2.0 * width + width2 + float(px), 0.0);
@@ -126,17 +135,17 @@ void main() {
         vec3 lightWorldCoord = vec3(samplepos * conversionK * lightDepth, lightDepth);
 
         if (pos.y == 0.0) {
-            outColor = encodeInt(int(lightWorldCoord.x * FIXEDPOINT));
+            fragColor = encodeInt(int(lightWorldCoord.x * FIXEDPOINT));
         } else if (pos.y == 1.0) {
-            outColor = encodeInt(int(lightWorldCoord.y * FIXEDPOINT));
+            fragColor = encodeInt(int(lightWorldCoord.y * FIXEDPOINT));
         } else if (pos.y == 2.0) {
-            outColor = encodeInt(int(lightWorldCoord.z * FIXEDPOINT));
+            fragColor = encodeInt(int(lightWorldCoord.z * FIXEDPOINT));
         } else {
-            outColor = sampleColor;
+            fragColor = sampleColor;
         }
 
-        if (Test == 1 && outColor.a == 0.0) {
-            outColor += vec4(0.0, 0.2, 0.0, 1.0);
+        if (Test == 1 && fragColor.a == 0.0) {
+            fragColor += vec4(0.0, 0.2, 0.0, 1.0);
         }
     }
 }

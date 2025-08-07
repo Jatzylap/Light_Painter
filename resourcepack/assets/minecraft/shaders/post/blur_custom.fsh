@@ -5,10 +5,12 @@ uniform sampler2D InSampler;
 in vec2 texCoord;
 flat in float aspectRatio;
 
-uniform float Radius;
-uniform float Offset;
+layout(std140) uniform BlurConfig {
+    float Radius;
+    float Offset;
+};
 
-out vec4 outColor;
+out vec4 fragColor;
 
 #define ITERATIONS 6
 
@@ -84,5 +86,5 @@ void main() {
     for(int i = 0; i < ITERATIONS; i += 1) {
         tmpCol += texture(InSampler, texCoord + poissonDisk[i + int(Offset)] * vec2(1.0 / aspectRatio, 1.0) * Radius).rgb;
     }
-    outColor = vec4(tmpCol / ITERATIONS, 1.0);
+    fragColor = vec4(tmpCol / ITERATIONS, 1.0);
 }

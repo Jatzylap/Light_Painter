@@ -1,5 +1,7 @@
 #version 150
 
+#define PI 3.1415926535897932
+
 #define BIG 1000000
 #define FIXEDPOINT 1000.0
 #define DSCALE 10.0
@@ -10,7 +12,7 @@
 
 #define LIGHTINTENSITY 1.0
 #define LIGHTINTENSITYT 0.5
-#define LIGHTRANGE 128.0
+#define LIGHTRANGE 32.0
 #define LIGHTR 8.0
 #define SPREAD 3.0
 #define BOOST 10.0

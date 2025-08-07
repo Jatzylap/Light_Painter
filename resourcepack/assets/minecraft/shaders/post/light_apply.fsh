@@ -9,8 +9,14 @@ uniform sampler2D LightsSampler;
 uniform sampler2D VolumeSampler;
 uniform sampler2D BlurSampler;
 
-uniform vec2 VolumeSize;
-uniform vec2 LightsSize;
+layout(std140) uniform SamplerInfo {
+    vec2 OutSize;
+    vec2 DiffuseSize;
+    vec2 DiffuseDepthSize;
+    vec2 LightsSize;
+    vec2 VolumeSize;
+    vec2 BlurSize;
+};
 
 in vec2 texCoord;
 flat in vec2 oneTexel;
@@ -19,11 +25,11 @@ flat in vec2 oneTexelVolume;
 flat in float aspectRatio;
 flat in float conversionK;
 
-out vec4 outColor;
+out vec4 fragColor;
 
 void main() {
     float depth = LinearizeDepth(texture(DiffuseDepthSampler, texCoord).r);
-    outColor = texture(DiffuseSampler, texCoord);
+    fragColor = texture(DiffuseSampler, texCoord);
     
     if (depth < LIGHTRANGE + LIGHTR) {
         vec4 aggColor = vec4(0.0, 0.0, 0.0, 1.0);
@@ -54,7 +60,7 @@ void main() {
             }
         }
 
-        outColor.rgb *= vec3(1.0) + aggColor.rgb * LIGHTINTENSITY * 5.0 * pow(1.0 - clamp(length(blurColor.rgb), 0.0, 1.0), 3.0);
-        outColor.rgb += LIGHTINTENSITY * aggColor.rgb * 0.1;
+        fragColor.rgb *= vec3(1.0) + aggColor.rgb * LIGHTINTENSITY * 5.0 * pow(1.0 - clamp(length(blurColor.rgb), 0.0, 1.0), 3.0);
+        fragColor.rgb += LIGHTINTENSITY * aggColor.rgb * 0.1;
     }
 }
