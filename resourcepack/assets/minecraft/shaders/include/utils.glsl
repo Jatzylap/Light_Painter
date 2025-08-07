@@ -12,7 +12,7 @@
 
 #define LIGHTINTENSITY 1.0
 #define LIGHTINTENSITYT 0.5
-#define LIGHTRANGE 32.0
+#define LIGHTRANGE 128.0
 #define LIGHTR 8.0
 #define SPREAD 3.0
 #define BOOST 10.0
